@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/post.dart';
+import '../models/post_model.dart';
 import '../services/post_service.dart';
 
 class PostsPage extends StatelessWidget {
@@ -9,7 +9,7 @@ class PostsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Posts")),
-      body: StreamBuilder<List<Post>>(
+      body: StreamBuilder<List<PostModel>>(
         stream: postService.streamPosts(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -24,7 +24,7 @@ class PostsPage extends StatelessWidget {
           return ListView.builder(
             itemCount: posts.length,
             itemBuilder: (context, index) {
-              final p = posts[index];
+              final PostModel p = posts[index];
               return ListTile(
                 title: Text(p.content),
                 subtitle: Text(p.createdAt.toLocal().toString()),

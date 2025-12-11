@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import '../models/post.dart';
+import '../models/post_model.dart';
 import '../services/post_service.dart';
 
 class AddPostPage extends StatefulWidget {
@@ -15,12 +15,13 @@ class _AddPostPageState extends State<AddPostPage> {
   void addPost() async {
     if (controller.text.trim().isEmpty) return;
 
-    final post = Post(
+    final post = PostModel(
       id: const Uuid().v4(),
-      userId: "anonymous", // Replace with Firebase Auth user ID if needed
+      userId: "anonymous",
       content: controller.text.trim(),
-      imageUrl: "",
       createdAt: DateTime.now(),
+      likes: 0,
+      comments: [], // empty list
     );
 
     await postService.addPost(post);
